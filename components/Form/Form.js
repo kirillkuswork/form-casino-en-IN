@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Form.module.css';
 import cn from 'classnames';
 import Image from 'next/image';
+import md5 from 'md5';
 
 
 // const handleSubmission = async (e, phone, variant, variant2) => {
@@ -35,10 +36,23 @@ const Form = () => {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [promocode, setPromocode] = useState('');
 	const [emailDirty, setEmailDirty] = useState(false);
 	const [passwordDirty, setPasswordDirty] = useState(false);
 	const [emailError, setEmailError] = useState('Por favor, insira um email válido.');
 	const [passwordError, setPasswordError] = useState('Mínimo 8 símbolos');
+	const [formValid, setFormValid] = useState(false);
+
+	const country = 'br';
+	const currency = 'brl';
+	const secret = 'YH1ETLdNAr29v5TWbHBrjhw5QlU97dIl';
+	const projectId = '8'
+	const signature = md5(`${secret}${projectId}${email}`);
+	const bonusChoice = '1';
+	const url = `https://megapari.com/api/registrationbydata?id=${projectId}&country=${country}&currency=${currency}&sign=${signature}&email=${email}&send_reg_data=1&promocode=${promocode}&bonus_choice=${bonusChoice}`;
+
+	console.log(signature);
+	console.log(url);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
@@ -73,6 +87,37 @@ const Form = () => {
 		}
 	}
 
+	const handleSubmit = () => {
+		if (!formValid) {
+			setEmailDirty(true);
+			setPasswordDirty(true);
+			return console.log('fail');
+		} else {
+			console.log('success');
+			fetch(url, {
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				}
+			})
+				.then(res => res.json())
+				.then(data => console.log(data))
+				.catch(e => {
+					console.log(e)
+				})
+		}
+
+	}
+
+	useEffect(() => {
+		if (emailError || passwordError) {
+			setFormValid(false)
+		} else {
+			setFormValid(true)
+		}
+	}, [emailError, passwordError])
+
+	console.log(promocode);
+
 	return (
 		<div className={styles.wrapper}>
 
@@ -87,9 +132,7 @@ const Form = () => {
 
 				<form className={styles.form} onSubmit={(e) => {
 					e.preventDefault();
-					// setModalStatus(false);
-					// setSuccessModalStatus(true);
-					// handleSubmission(e, phone, variant, variant2);
+					handleSubmit();
 				}}>
 
 					<label className={styles.label}>Preencha o formulário e receba seu bônus</label>
@@ -105,7 +148,7 @@ const Form = () => {
 
 					<input className={cn(styles.field, styles.email, {
 						[styles.inputError]: emailDirty && emailError
-					})} name="email" type="text" placeholder='E-MAIL'
+					})} name="email" type="text" placeholder='E-MAIL' value={email}
 						onChange={e => emailHandler(e)}
 						onBlur={e => blurHandler(e)} />
 					{(emailDirty && emailError) && (
@@ -116,7 +159,7 @@ const Form = () => {
 
 					<input className={cn(styles.field, styles.password, {
 						[styles.inputError]: passwordDirty && passwordError
-					})} name="password" type="password" placeholder='SENHA'
+					})} name="password" type="password" placeholder='SENHA' value={password}
 						onChange={e => passwordHandler(e)}
 						onBlur={e => blurHandler(e)} />
 					{(passwordDirty && passwordError) && (
@@ -126,8 +169,10 @@ const Form = () => {
 					)}
 
 					<div className={styles.bot}>
-						<input className={styles.field} type="text" placeholder='Código promocional' />
-						<input className={styles.submit} type="submit" value="REGISTRO" disabled />
+						<input className={styles.field} type="text" placeholder='Código promocional'
+							value={promocode}
+							onChange={e => setPromocode(e.target.value)} />
+						<input className={styles.submit} type="submit" value="REGISTRO" />
 					</div>
 
 					<p className={styles.note}>EU CONCORDO COM OS TERMOS E CONDIÇÕES</p>
