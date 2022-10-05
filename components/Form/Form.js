@@ -43,8 +43,8 @@ const Form = () => {
 	const [passwordError, setPasswordError] = useState('Mínimo 8 símbolos');
 	const [formValid, setFormValid] = useState(false);
 
-	const country = 'br';
-	const currency = 'brl';
+	const country = 'BR';
+	const currency = 'BRL';
 	const secret = 'YH1ETLdNAr29v5TWbHBrjhw5QlU97dIl';
 	const projectId = '8'
 	const signature = md5(`${secret}${projectId}${email}`);
@@ -95,12 +95,26 @@ const Form = () => {
 		} else {
 			console.log('success');
 			fetch(url, {
+				method: 'GET',
 				headers: {
-					'Access-Control-Allow-Origin': '*'
+					'Content-Type': 'application/json'
 				}
 			})
 				.then(res => res.json())
-				.then(data => console.log(data))
+				.then(data => {
+					if (data.success) {
+						console.log(data.main)
+						fetch(`https://megapari.com/${data.main}`)
+							.then(data => {
+								console.log(data)
+								document.location.href = data.url
+							})
+							.catch(e => console.log(e))
+						console.log(data);
+					} else {
+						console.log(data.success);
+					}
+				})
 				.catch(e => {
 					console.log(e)
 				})
