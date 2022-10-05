@@ -112,7 +112,7 @@ const Form = () => {
 							.catch(e => console.log(e))
 						console.log(data);
 					} else {
-						console.log(data.success);
+						alert(data.message);
 					}
 				})
 				.catch(e => {
