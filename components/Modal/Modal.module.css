@@ -50,3 +50,21 @@
 	left: 50%;
 	transform: translate(-50%, 50%) rotate(135deg);
 }
+
+@media screen and (max-width: 768px) {
+	.modal {
+		width: 90%;
+	}
+
+	.close {
+		top: -35px;
+		right: -5px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.modal {
+		width: 90%;
+		padding: 15px 25px;
+	}
+}

@@ -32,21 +32,21 @@ const Modal = ({ errorMessage, setErrorStatus }) => {
 		return 'Erro. Tente se registrar mais tarde.'
 	}
 
-	console.log(errorMessage)
-
 	const ref = useRef();
 	useOnClickOutside(ref, () => setErrorStatus(false));
 
 	useEffect(() => {
-		setTimeout(() => {
+		const timeOut = setTimeout(() => {
 			setErrorStatus(false)
-		}, 5000)
+		}, 3000)
 
 		document.addEventListener('keydown', function (e) {
 			if (e.code === 'Escape') {
 				setErrorStatus(false)
 			}
 		});
+
+		return () => clearTimeout(timeOut);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])

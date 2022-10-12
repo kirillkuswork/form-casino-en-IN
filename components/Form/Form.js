@@ -5,34 +5,6 @@ import md5 from 'md5';
 
 import Modal from '../Modal/Modal';
 
-
-// const handleSubmission = async (e, phone, variant, variant2) => {
-// 	e.preventDefault();
-
-// 	const formData = {
-// 		"phone": phone,
-// 		"type": 'Заявка на расчёт',
-// 		"contactType": variant,
-// 		"whereType": variant2,
-// 		"guests": document.getElementById("guests").value
-// 	}
-
-// 	fetch('/api/order', {
-// 		method: 'POST',
-// 		headers: {
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: JSON.stringify(formData)
-// 	})
-// 		.then(res => res.json())
-// 		.then(data => {
-// 			if (data) console.log(data)
-// 		})
-// 		.catch(err => {
-// 			console.error(err)
-// 		})
-// }
-
 const Form = () => {
 
 	const [email, setEmail] = useState('');
@@ -54,9 +26,6 @@ const Form = () => {
 	const signature = md5(`${secret}${projectId}${email}`);
 	const bonusChoice = '1';
 	const url = `https://megapari.com/api/registrationbydata?id=${projectId}&country=${country}&currency=${currency}&sign=${signature}&email=${email}&password=${password}&send_reg_data=1&promocode=${promocode}&bonus_choice=${bonusChoice}`;
-
-	console.log(signature);
-	console.log(url);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
@@ -91,13 +60,22 @@ const Form = () => {
 		}
 	}
 
+	const refreshForm = () => {
+		setErrorStatus(true);
+		setEmail('');
+		setPassword('');
+		setPromocode('');
+		setEmailDirty(false);
+		setPasswordDirty(false);
+		setEmailError('Por favor, insira um email válido.');
+		setPasswordError('Mínimo 8 símbolos');
+	}
+
 	const handleSubmit = () => {
 		if (!formValid) {
 			setEmailDirty(true);
 			setPasswordDirty(true);
-			return console.log('fail');
 		} else {
-			console.log('success');
 			setLoading(true);
 			fetch(url, {
 				method: 'GET',
@@ -108,24 +86,17 @@ const Form = () => {
 				.then(res => res.json())
 				.then(data => {
 					if (data.success) {
-						// fetch(`https://megapari.com/${data.main}`)
-						// 	.then(data => {
-						// 		console.log(data)
-						// 		document.location.href = data.url
-						// 	})
-						// 	.catch(e => console.log(e))
 						document.location.href = `https://megapari.com/${data.main}`;
-						console.log(data);
 					} else {
 						setLoading(false);
 						setErrorMessage(data.message);
-						setErrorStatus(true);
-						setEmail('');
-						setPassword('');
+						refreshForm();
 					}
 				})
 				.catch(e => {
-					console.log(e)
+					setLoading(false);
+					setErrorMessage(e.message);
+					refreshForm();
 				})
 		}
 
@@ -138,8 +109,6 @@ const Form = () => {
 			setFormValid(true)
 		}
 	}, [emailError, passwordError])
-
-	console.log(promocode);
 
 	return (
 		<>
