@@ -24,7 +24,7 @@ const Form = () => {
 	const secret = 'YH1ETLdNAr29v5TWbHBrjhw5QlU97dIl';
 	const projectId = '8';
 	const signature = md5(`${secret}${projectId}${email}`);
-	const bonusChoice = '1';
+	const bonusChoice = '2';
 	const url = `https://megapari.com/api/registrationbydata?id=${projectId}&country=${country}&currency=${currency}&sign=${signature}&email=${email}&password=${password}&send_reg_data=1&promocode=${promocode}&bonus_choice=${bonusChoice}`;
 
 	const emailHandler = (e) => {
@@ -115,8 +115,7 @@ const Form = () => {
 			<div className={styles.wrapper}>
 
 				<div className={styles.info}>
-					<p className={styles.bonus}>BÔNUS DE 100% O PRIMEIRO DEPÓSITO ATÉ</p>
-					<p className={styles.money}>1000 BRL</p>
+					<img className={styles.tickets} src="images/tickets.png" alt='tickets' />
 				</div>
 
 				<div className={styles.inner}>
