@@ -13,7 +13,7 @@ const Form = () => {
 	const [emailDirty, setEmailDirty] = useState(false);
 	const [passwordDirty, setPasswordDirty] = useState(false);
 	const [emailError, setEmailError] = useState('Por favor, insira um email válido.');
-	const [passwordError, setPasswordError] = useState('Mínimo 8 símbolos');
+	const [passwordError, setPasswordError] = useState('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!');
 	const [formValid, setFormValid] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
@@ -43,7 +43,7 @@ const Form = () => {
 		if (!re.test(String(e.target.value).toLowerCase())) {
 			setPasswordError('A senha deve conter apenas letras latinas e dígitos.')
 		} else if (e.target.value.length < 8) {
-			setPasswordError('Mínimo 8 símbolos')
+			setPasswordError('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!')
 		} else {
 			setPasswordError('')
 		}
@@ -68,7 +68,7 @@ const Form = () => {
 		setEmailDirty(false);
 		setPasswordDirty(false);
 		setEmailError('Por favor, insira um email válido.');
-		setPasswordError('Mínimo 8 símbolos');
+		setPasswordError('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!');
 	}
 
 	const handleSubmit = () => {
