@@ -16,7 +16,7 @@
 .inner {
 	background:
 		radial-gradient(62.01% 62.01% at 49.97% 55.08%, #F5F5F5 0%, #606361 100%) padding-box,
-		linear-gradient(90deg, #0E627C 0%, #008746 100%) border-box;
+		linear-gradient(90deg, #265082 0%, #827826 100%) border-box;
 
 	border: 3px solid transparent;
 	box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
@@ -33,7 +33,7 @@
 	width: calc(100% - 20px);
 	background:
 		linear-gradient(90deg, #575757 0%, #575757 100%) padding-box,
-		linear-gradient(90deg, #008746 0%, #3E4042 100%) border-box;
+		linear-gradient(90deg, #827826 0%, #3E4042 100%) border-box;
 
 	border: 3px solid transparent;
 	border-radius: 40px;

@@ -12,15 +12,15 @@ const Form = () => {
 	const [promocode, setPromocode] = useState('');
 	const [emailDirty, setEmailDirty] = useState(false);
 	const [passwordDirty, setPasswordDirty] = useState(false);
-	const [emailError, setEmailError] = useState('Por favor, insira um email válido.');
-	const [passwordError, setPasswordError] = useState('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!');
+	const [emailError, setEmailError] = useState('Please, enter correct email.');
+	const [passwordError, setPasswordError] = useState('Minimum 6 symbols. Must contain only Latin characters and digits!');
 	const [formValid, setFormValid] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [errorStatus, setErrorStatus] = useState(false);
 
-	const country = 'BR';
-	const currency = 'BRL';
+	const country = 'IN';
+	const currency = 'INR';
 	const secret = 'YH1ETLdNAr29v5TWbHBrjhw5QlU97dIl';
 	const projectId = '8';
 	const signature = md5(`${secret}${projectId}${email}`);
@@ -31,7 +31,7 @@ const Form = () => {
 		setEmail(e.target.value);
 		const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(String(e.target.value).toLowerCase())) {
-			setEmailError('Por favor, insira um email válido.')
+			setEmailError('Please, enter correct email.')
 		} else {
 			setEmailError('')
 		}
@@ -41,9 +41,7 @@ const Form = () => {
 		setPassword(e.target.value);
 		const re = /^(?=.*[a-z])(?=.*\d)\S{8,}$/;
 		if (!re.test(String(e.target.value).toLowerCase())) {
-			setPasswordError('A senha deve conter apenas letras latinas e dígitos.')
-		} else if (e.target.value.length < 8) {
-			setPasswordError('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!')
+			setPasswordError('Minimum 6 symbols. Must contain only Latin characters and digits!')
 		} else {
 			setPasswordError('')
 		}
@@ -67,8 +65,8 @@ const Form = () => {
 		setPromocode('');
 		setEmailDirty(false);
 		setPasswordDirty(false);
-		setEmailError('Por favor, insira um email válido.');
-		setPasswordError('Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!');
+		setEmailError('Please, enter correct email.');
+		setPasswordError('Minimum 6 symbols. Must contain only Latin characters and digits!');
 	}
 
 	const handleSubmit = () => {
@@ -127,14 +125,15 @@ const Form = () => {
 						handleSubmit();
 					}}>
 
-						<label className={styles.label}>Preencha o formulário e receba seu bônus</label>
+						<label className={styles.label}>Fill out the form
+							and get your bonus</label>
 
 						<div className={styles.currency}>
 							<div className={styles.field}>
-								BRASIL
+								INDIA
 							</div>
 							<div className={styles.field}>
-								BRL
+								INR
 							</div>
 						</div>
 
@@ -151,7 +150,7 @@ const Form = () => {
 
 						<input className={cn(styles.field, styles.password, {
 							[styles.inputError]: passwordDirty && passwordError
-						})} name="password" type="password" placeholder='SENHA' value={password}
+						})} name="password" type="password" placeholder='PASSWORD' value={password}
 							onChange={e => passwordHandler(e)}
 							onBlur={e => blurHandler(e)} />
 						{(passwordDirty && passwordError) && (
@@ -161,11 +160,11 @@ const Form = () => {
 						)}
 
 						<div className={styles.bot}>
-							<input className={styles.field} type="text" placeholder='Código promocional'
+							<input className={styles.field} type="text" placeholder='PROMOCODE'
 								value={promocode}
 								onChange={e => setPromocode(e.target.value)} />
 							<div className={styles.submitWrapper}>
-								<input className={styles.submit} type="submit" value="REGISTRO" />
+								<input className={styles.submit} type="submit" value="REGISTER" />
 								{loading ? (
 									<svg className={styles.loading} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'none', display: 'block', shapeRendering: 'auto' }} width="20px" height="20px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 										<circle cx="50" cy="50" fill="none" stroke="#ffffff" strokeWidth="10" r="35" strokeDasharray="164.93361431346415 56.97787143782138">
@@ -176,8 +175,8 @@ const Form = () => {
 							</div>
 						</div>
 
-						<p className={styles.note}>EU CONCORDO COM OS TERMOS E CONDIÇÕES</p>
-						<p className={styles.note}>CONCORDO EM RECEBER MENSAGENS VIA E-MAIL OU TELEFONE</p>
+						<p className={styles.note}>I AGREE WITH THE TERMS AND CONDITIONS</p>
+						<p className={styles.note}>I AGREE TO RECEIVE MESSAGES VIA EMAIL OR PHONE</p>
 
 					</form>
 				</div >

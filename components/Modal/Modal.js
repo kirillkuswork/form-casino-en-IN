@@ -8,28 +8,28 @@ const Modal = ({ errorMessage, setErrorStatus }) => {
 	const checkError = (e) => {
 		switch (e) {
 			case 'С таким адресом электронной почты зарегистрировано несколько аккаунтов!':
-				return 'Este endereço de e-mail já está em uso!';
+				return 'This email address is already in use!';
 				break;
 			case 'Вы указали e-mail в неверном формате!':
-				return 'Por favor, digite o e-mail correto.';
+				return 'Please, enter correct email.';
 				break;
 			case 'Недопустимая валюта':
-				return 'Moeda inválida.';
+				return 'Invalid currency.';
 				break;
 			case 'Ошибка.':
-				return 'Erro. Tente se registrar mais tarde.';
+				return 'Error. Try to register later.';
 				break;
 			case 'Минимум 6 символов, обязан содержать цифры и латинский буквы.':
-				return 'Mínimo de 6 símbolos. Deve conter apenas caracteres e dígitos latinos!';
+				return 'Minimum 6 symbols. Must contain only Latin characters and digits!';
 				break;
-			default: 'Erro. Tente se registrar mais tarde.';
+			default: 'Error. Try to register later.';
 		}
 
 		if (e.includes('Извините, регистрация игроков из указанной страны')) {
-			return 'Desculpe, o registro do país especificado (Brasil) está suspenso.'
+			return 'Sorry, registration from specified country (India) is suspended.'
 		}
 
-		return 'Erro. Tente se registrar mais tarde.'
+		return 'Error. Try to register later.'
 	}
 
 	const ref = useRef();
